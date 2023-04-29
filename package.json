@@ -1,19 +1,29 @@
 {
-  "name": "mikro-orm",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "tsx main.ts",
-    "start:watch": "tsx watch main.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@mikro-orm/core": "^5.7.3",
-    "@mikro-orm/sqlite": "^5.7.3",
-    "tsx": "^3.12.6"
-  }
+    "name": "mikro-orm",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "ts-node src/main.ts",
+        "start:watch": "ts-node src/main.ts",
+        "migration:create": "mikro-orm migration:create",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "mikro-orm": {
+        "useTsNode": true,
+        "configPaths": [
+            "./src/mikro-orm.config.ts"
+        ]
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@mikro-orm/cli": "^5.7.3",
+        "@mikro-orm/core": "^5.7.3",
+        "@mikro-orm/migrations": "^5.7.3",
+        "@mikro-orm/sqlite": "^5.7.3",
+        "prompts": "^2.4.2",
+        "ts-node": "^10.9.1"
+    }
 }
