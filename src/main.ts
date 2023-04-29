@@ -2,6 +2,7 @@ import { MikroORM } from "@mikro-orm/core";
 import type { SqliteDriver } from "@mikro-orm/sqlite";
 import { Person } from "./entities/Person";
 import ormConfig from "./mikro-orm.config";
+import prompts from "prompts";
 
 async function main() {
     let orm;
@@ -11,9 +12,21 @@ async function main() {
         const migrator = orm.getMigrator();
         await migrator.up();
 
-        await createPerson(orm);
+        // main application logic
+        const response = await prompts([
+            {
+                type: "text",
+                name: "firstName",
+                message: "What is your first name ?",
+            },
+            {
+                type: "text",
+                name: "lastName",
+                message: "What is your last name ?",
+            },
+        ]);
 
-        console.log(add(4, 7));
+        await createPerson(orm, response.firstName, response.lastName);
     } finally {
         orm?.close();
     }
@@ -21,18 +34,18 @@ async function main() {
 
 main().catch(console.error);
 
-async function createPerson(orm: MikroORM<SqliteDriver>) {
+async function createPerson(
+    orm: MikroORM<SqliteDriver>,
+    firstName: string,
+    lastName: string
+) {
     const em = orm.em.fork();
     const personRepository = em.getRepository(Person);
 
     const p1 = personRepository.create({
-        firstName: "mihai",
-        lastName: "mihai",
+        firstName: firstName,
+        lastName: lastName,
     });
 
     await em.persistAndFlush(p1);
-}
-
-function add(a: number, b: number) {
-    return a + b;
 }

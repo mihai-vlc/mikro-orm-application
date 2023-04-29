@@ -25,5 +25,8 @@
         "@mikro-orm/sqlite": "^5.7.3",
         "prompts": "^2.4.2",
         "ts-node": "^10.9.1"
+    },
+    "devDependencies": {
+        "@types/prompts": "^2.4.4"
     }
 }

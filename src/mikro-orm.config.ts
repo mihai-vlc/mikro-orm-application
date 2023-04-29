@@ -5,7 +5,7 @@ export default defineConfig({
     entities: [Person],
     dbName: "data.db",
     type: "sqlite",
-    debug: true,
+    debug: false,
     migrations: {
         path: "./migrations",
     },
